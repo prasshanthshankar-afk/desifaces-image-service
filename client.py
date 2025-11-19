@@ -106,7 +106,6 @@ def main():
     
     parser.add_argument(
         "--prompt", "-p",
-        required=True,
         help="Text description of the image to generate"
     )
     
@@ -156,6 +155,10 @@ def main():
     if args.health_check:
         check_health(args.endpoint)
         return
+    
+    # Validate prompt is provided for generation
+    if not args.prompt:
+        parser.error("--prompt is required for image generation (not needed for --health-check)")
     
     # Check health first
     print("Checking service health...")
